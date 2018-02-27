@@ -6,7 +6,7 @@ namespace University.Controllers
 {
   public class StudentsController : Controller
   {
-    [Route("/")]
+    [HttpGet("/students")]
     public ActionResult Index()
     {
       List<Student> allStudents = Student.GetAll();
@@ -25,7 +25,7 @@ namespace University.Controllers
       Student newStudent = new Student(Request.Form["first-name"],Request.Form["last-name"],Request.Form["date"]);
       newStudent.Save();
 
-      return RedirectToAction("Index");
+      return RedirectToAction("Index", "students");
     }
 
 

@@ -8,6 +8,11 @@ Program should list all students at the university.
 Input: Request get all students
 Output: List of all students.
 
+Program should record a course at the university, including name of course.
+Input: Name
+Output: Course info
+
+
 
 ---
 

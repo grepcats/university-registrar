@@ -1,0 +1,25 @@
+@{
+  Layout = "_Layout";
+}
+<h1>University Courses</h1>
+<a href="/courses/new">Add new Course</a>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Course Name</th>
+      <th>Course Number</th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach(var course in Model)
+    {
+      <tr>
+        <td>@course.GetCourseName()</td>
+        <td>@course.GetCourseNumber()</td>
+      </tr>
+    }
+  </tbody>
+</table>
+
+<a href="/">Return to Home</a>
