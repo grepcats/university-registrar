@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using University.Models;
+using System;
 
 namespace University.Controllers
 {
@@ -38,6 +39,15 @@ namespace University.Controllers
       model.Add("students", students);
       model.Add("allstudents", allStudents);
       return View("Details", model);
+    }
+
+    [HttpPost("/courses/{courseId}/students")]
+    public ActionResult AddStudent(int courseId)
+    {
+      Course course = Course.Find(courseId);
+      Student foundStudent = Student.Find(Int32.Parse(Request.Form["student-id"]));
+      course.AddStudent(foundStudent);
+      return RedirectToAction("Details", new {Id = courseId});
     }
   }
 }

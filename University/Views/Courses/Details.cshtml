@@ -21,4 +21,18 @@
     }
   </tbody>
 </table>
+
+<h2>Add a student to this course</h2>
+<form method="post" action='/courses/@Model["course"].GetCourseId()/students'>
+  <div class="form-group">
+    <label for="student-id">Select a student</label>
+    <select id="student-id" name="student-id" type="text">
+      @foreach (var student in @Model["allstudents"])
+      {
+        <option value="@student.GetId()">@student.GetFirstName() @student.GetLastName()</option>
+      }
+    </select>
+  </div>
+  <button type="submit" class="btn btn-primary">Add</button>
+</form>
 <a href="/courses">Return to courses</a>

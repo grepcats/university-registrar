@@ -121,5 +121,44 @@ namespace University.Models
      }
    }
 
+   public static Student Find(int id)
+   {
+     MySqlConnection conn = DB.Connection();
+     conn.Open();
+
+     var cmd = conn.CreateCommand() as MySqlCommand;
+     cmd.CommandText = @"SELECT * from `students` WHERE id = @thisId;";
+
+     MySqlParameter thisId = new MySqlParameter();
+     thisId.ParameterName = "@thisId";
+     thisId.Value = id;
+     cmd.Parameters.Add(thisId);
+
+     var rdr = cmd.ExecuteReader() as MySqlDataReader;
+     int studentId = 0;
+     string studentFirstName = "";
+     string studentLastName = "";
+     string studentRawDate = "";
+
+     while (rdr.Read())
+     {
+       studentId = rdr.GetInt32(3);
+       studentFirstName = rdr.GetString(0);
+       studentLastName = rdr.GetString(1);
+       studentRawDate = rdr.GetString(2);
+     }
+
+     Student foundStudent = new Student(studentFirstName, studentLastName, studentRawDate, studentId);
+
+     conn.Close();
+     if (conn != null)
+     {
+       conn.Dispose();
+     }
+
+     return foundStudent;
+   }
+
+
   }
 }

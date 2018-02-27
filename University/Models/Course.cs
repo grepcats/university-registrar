@@ -181,5 +181,33 @@ namespace University.Models
        return students;
 
      }
+
+     public void AddStudent(Student newStudent)
+     {
+       MySqlConnection conn = DB.Connection();
+       conn.Open();
+       var cmd = conn.CreateCommand() as MySqlCommand;
+       cmd.CommandText = @"INSERT INTO roster (course_id, student_id) VALUES (@CourseId, @StudentId);";
+
+       MySqlParameter course_id = new MySqlParameter();
+       course_id.ParameterName = "@CourseId";
+       course_id.Value = this._courseId;
+       cmd.Parameters.Add(course_id);
+
+       MySqlParameter student_id = new MySqlParameter();
+       student_id.ParameterName = "@StudentId";
+       student_id.Value = newStudent.GetId();
+       cmd.Parameters.Add(student_id);
+
+       cmd.ExecuteNonQuery();
+       conn.Close();
+       if (conn != null)
+       {
+         conn.Dispose();
+       }
+
+     }
   }
+
+
 }

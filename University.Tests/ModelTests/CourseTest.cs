@@ -102,5 +102,27 @@ namespace University.Tests
       //assert
       Assert.AreEqual(foundCourse, testCourse);
     }
+
+    [TestMethod]
+    public void AddStudent_AddStudentToCourseinDB_StudentList()
+    {
+      //arrange
+      Course testCourse = new Course("Calculus III", "MATH252");
+      testCourse.Save();
+
+      Student testStudent1 = new Student("Kayla", "Ondracek", "2008-01-01");
+      testStudent1.Save();
+
+      Student testStudent2 = new Student("Frank", "Ngo", "2008-01-01");
+      testStudent2.Save();
+
+      //act
+      testCourse.AddStudent(testStudent1);
+      List<Student> savedStudents = testCourse.GetStudents();
+      List<Student> testStudentList = new List<Student>{testStudent1};
+
+      //assert
+      CollectionAssert.AreEqual(testStudentList, savedStudents);
+    }
   }
 }
