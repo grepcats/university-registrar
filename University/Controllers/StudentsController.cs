@@ -28,6 +28,12 @@ namespace University.Controllers
       return RedirectToAction("Index", "students");
     }
 
-
+    [HttpGet("/students/{id}/delete")]
+    public ActionResult Delete(int id)
+    {
+      Student foundStudent = Student.Find(id);
+      foundStudent.Delete();
+      return RedirectToAction("Index","students");
+    }
   }
 }

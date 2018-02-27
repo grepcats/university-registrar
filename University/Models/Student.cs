@@ -44,6 +44,26 @@ namespace University.Models
       }
     }
 
+  public void Delete()
+  {
+    MySqlConnection conn = DB.Connection();
+    conn.Open();
+
+    var cmd = conn.CreateCommand() as MySqlCommand;
+    cmd.CommandText = @"DELETE FROM students WHERE id = @StudentId; DELETE FROM roster WHERE student_id = @StudentId;";
+    MySqlParameter studentIdParameter = new MySqlParameter();
+    studentIdParameter.ParameterName = "@StudentId";
+    studentIdParameter.Value = this._id;
+
+    cmd.Parameters.Add(studentIdParameter);
+    cmd.ExecuteNonQuery();
+
+    conn.Close();
+    if(conn != null)
+    {
+      conn.Dispose();
+    }
+  }
   public void Save()
   {
     MySqlConnection conn = DB.Connection();

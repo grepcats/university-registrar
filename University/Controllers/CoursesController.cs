@@ -49,5 +49,15 @@ namespace University.Controllers
       course.AddStudent(foundStudent);
       return RedirectToAction("Details", new {Id = courseId});
     }
+
+    [HttpGet("/courses/{courseId}/students/{studentId}")]
+    public ActionResult DropOut(int courseId, int studentId)
+    {
+      Student foundStudent = Student.Find(studentId);
+      Course foundCourse = Course.Find(courseId);
+
+      foundCourse.DropOut(foundStudent);
+      return RedirectToAction("Details",new {Id = courseId});
+    }
   }
 }

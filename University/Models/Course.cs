@@ -38,6 +38,33 @@ namespace University.Models
       }
     }
 
+    public void DropOut(Student droppedStudent)
+    {
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"DELETE FROM roster WHERE student_id = @StudentId AND course_id = @CourseId;";
+
+      MySqlParameter studentIdParameter = new MySqlParameter();
+      studentIdParameter.ParameterName = "@StudentId";
+      studentIdParameter.Value = droppedStudent.GetId();
+
+      MySqlParameter courseIdParameter = new MySqlParameter();
+      courseIdParameter.ParameterName = "@CourseId";
+      courseIdParameter.Value = this._courseId;
+
+      cmd.Parameters.Add(studentIdParameter);
+      cmd.Parameters.Add(courseIdParameter);
+      cmd.ExecuteNonQuery();
+
+      conn.Close();
+      if(conn != null)
+      {
+        conn.Dispose();
+      }
+    }
+
     public void Save()
     {
       MySqlConnection conn = DB.Connection();
@@ -208,6 +235,4 @@ namespace University.Models
 
      }
   }
-
-
 }
