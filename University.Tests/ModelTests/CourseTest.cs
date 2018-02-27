@@ -88,5 +88,19 @@ namespace University.Tests
       //assert
       Assert.AreEqual(firstCourse, secondCourse);
     }
+
+    [TestMethod]
+    public void Find_FindCourseInDatabase_Course()
+    {
+      //arrange
+      Course testCourse = new Course("Calculus III", "MATH252");
+      testCourse.Save();
+
+      //act
+      Course foundCourse = Course.Find(testCourse.GetCourseId());
+
+      //assert
+      Assert.AreEqual(foundCourse, testCourse);
+    }
   }
 }

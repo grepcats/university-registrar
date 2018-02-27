@@ -1,0 +1,24 @@
+@{
+  Layout = "_Layout";
+}
+
+<h1>Details for @Model["course"].GetCourseName()</h1>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach(var student in @Model["students"])
+    {
+      <tr>
+        <td>@student.GetFirstName()</td>
+        <td>@student.GetLastName()</td>
+      </tr>
+    }
+  </tbody>
+</table>
+<a href="/courses">Return to courses</a>
